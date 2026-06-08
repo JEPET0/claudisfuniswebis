@@ -109,8 +109,9 @@
     /* ── buttons ── */
     .btn {
       --pad-x: 1.7rem;
-      display: inline-flex; align-items: center; gap: 0.7rem;
+      display: inline-flex; align-items: center; justify-content: center; gap: 0.7rem;
       padding: 0.95rem var(--pad-x);
+      border-radius: 100px;
       font-family: var(--sans); font-size: 0.9rem; font-weight: 500;
       letter-spacing: 0.01em; cursor: pointer; border: none;
       transition: background 0.3s var(--ease-out), color 0.3s var(--ease-out),
@@ -162,7 +163,9 @@
     .nav-links { display: flex; align-items: center; gap: 2rem; list-style: none; }
     .nav-links a { font-size: 0.88rem; color: var(--ink-2); transition: color 0.25s var(--ease-out); }
     .nav-links a:hover { color: var(--gold-ink); }
-    .nav-cta { padding: 0.6rem 1.2rem; }
+    .nav-cta { padding: 0.6rem 1.3rem; }
+    /* lock the CTA text bright — beats the `.nav-links a` colour cascade */
+    .nav-links a.nav-cta, .nav-links a.nav-cta:hover { color: oklch(0.975 0.008 80); }
     .burger { display: none; width: 44px; height: 44px; background: none; border: none; cursor: pointer;
       position: relative; }
     .burger span { position: absolute; left: 11px; width: 22px; height: 1.5px; background: var(--ink);
