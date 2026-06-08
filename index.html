@@ -3,1080 +3,657 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Perruqueria unisex a Esparreguera, Barcelona. Inma i Rosa, més de 20 anys d'experiència. Talls, tints, balayage, extensions i molt més.">
-  <meta name="theme-color" content="#C9A96E">
+  <meta name="description" content="Perruqueria unisex a Esparreguera. Inma i Rosa, més de vint anys donant forma a la creativitat i el benestar. Talls, color, balayage, queratina i extensions.">
+  <meta name="theme-color" content="#F7F2E9">
   <meta property="og:title" content="Zas Perruqueria — Esparreguera">
   <meta property="og:description" content="La Creativitat i el Benestar és la nostra Inspiració">
   <meta property="og:type" content="website">
-  <title>Zas Perruqueria — Esparreguera, Barcelona</title>
+  <title>Zas Perruqueria · Esparreguera</title>
+
+  <script>document.documentElement.classList.add('js');</script>
+
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400;1,9..144,500&family=Hanken+Grotesk:wght@300;400;500;600&display=swap" rel="stylesheet">
 
   <style>
-    /* ─── VARIABLES ─── */
+    /* ════════════════════════════════════════════
+       TOKENS  ·  OKLCH editorial-luxury palette
+    ════════════════════════════════════════════ */
     :root {
-      --cream:       #FAF8F4;
-      --cream-dark:  #F0EAE0;
-      --cream-mid:   #EDE4D8;
-      --gold:        #C9A96E;
-      --gold-hover:  #B8914F;
-      --gold-light:  #E0C99A;
-      --gold-pale:   #F5EDD8;
-      --black:       #1A1A1A;
-      --grey:        #4A4A4A;
-      --grey-light:  #888;
-      --white:       #FFFFFF;
-      --serif:       'Playfair Display', Georgia, serif;
-      --sans:        'DM Sans', system-ui, sans-serif;
-      --max:         1200px;
+      /* warmth lives in the surface + accent, not in a generic "cream" reflex */
+      --bg:        oklch(0.969 0.010 79);   /* warm paper            */
+      --bg-2:      oklch(0.942 0.016 76);   /* deeper warm panel     */
+      --bg-deep:   oklch(0.205 0.014 64);   /* near-black, warm      */
+      --surface:   oklch(0.993 0.005 79);   /* near-white card       */
+
+      --ink:       oklch(0.215 0.014 62);   /* headings / near-black */
+      --ink-2:     oklch(0.392 0.013 60);   /* body — passes 4.5:1   */
+      --ink-3:     oklch(0.548 0.012 60);   /* muted, large text only*/
+      --cream-ink: oklch(0.928 0.012 80);   /* text on dark          */
+      --cream-mut: oklch(0.74 0.012 78);    /* muted text on dark    */
+
+      --gold:      oklch(0.745 0.090 72);   /* accent — large/decor  */
+      --gold-ink:  oklch(0.520 0.098 62);   /* accent for small text */
+      --gold-soft: oklch(0.90 0.045 78);    /* tint fills            */
+
+      --line:      oklch(0.215 0.014 62 / 0.13);  /* hairline on light */
+      --line-2:    oklch(0.215 0.014 62 / 0.07);
+      --line-dark: oklch(0.928 0.012 80 / 0.14);  /* hairline on dark  */
+
+      /* soft, layered, warm-tinted shadow — never paired with a border */
+      --shadow-sm: 0 1px 2px oklch(0.30 0.02 60 / 0.05),
+                   0 4px 12px oklch(0.30 0.02 60 / 0.05);
+      --shadow-md: 0 2px 6px oklch(0.30 0.02 60 / 0.06),
+                   0 16px 40px oklch(0.30 0.02 60 / 0.09);
+      --shadow-lg: 0 4px 10px oklch(0.30 0.02 60 / 0.07),
+                   0 30px 70px oklch(0.30 0.02 60 / 0.13);
+
+      --serif: 'Fraunces', 'Times New Roman', serif;
+      --sans:  'Hanken Grotesk', system-ui, sans-serif;
+
+      --ease-out:    cubic-bezier(0.23, 1, 0.32, 1);
+      --ease-io:     cubic-bezier(0.77, 0, 0.175, 1);
+      --ease-drawer: cubic-bezier(0.32, 0.72, 0, 1);
+
+      --max: 1180px;
+      --gut: clamp(20px, 5vw, 64px);
     }
 
-    /* ─── RESET ─── */
+    /* ════════════════════════════════════════════
+       RESET / BASE
+    ════════════════════════════════════════════ */
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    html { scroll-behavior: smooth; font-size: 16px; }
+    html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
     body {
-      background: var(--cream);
-      color: var(--black);
+      background: var(--bg);
+      color: var(--ink-2);
       font-family: var(--sans);
-      font-weight: 300;
-      line-height: 1.7;
+      font-weight: 400;
+      font-size: 1.02rem;
+      line-height: 1.65;
       -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
       overflow-x: hidden;
     }
-    img { max-width: 100%; display: block; }
-    a { color: inherit; }
-    :focus-visible { outline: 2px solid var(--gold); outline-offset: 3px; }
+    img, svg { display: block; max-width: 100%; }
+    a { color: inherit; text-decoration: none; }
+    h1, h2, h3 { font-family: var(--serif); color: var(--ink); font-weight: 500; line-height: 1.05; text-wrap: balance; letter-spacing: -0.015em; }
+    p { text-wrap: pretty; }
+    ::selection { background: var(--gold-soft); color: var(--ink); }
+    :focus-visible { outline: 2px solid var(--gold-ink); outline-offset: 3px; border-radius: 2px; }
 
-    /* ─── UTILITIES ─── */
-    .container { max-width: var(--max); margin: 0 auto; padding: 0 32px; }
-    .section-label {
-      display: inline-block;
-      font-size: .68rem; font-weight: 500;
-      letter-spacing: .2em; text-transform: uppercase;
-      color: var(--gold); margin-bottom: 14px;
-    }
-    h2.section-title {
-      font-family: var(--serif);
-      font-size: clamp(1.9rem, 4vw, 3rem);
-      line-height: 1.15; margin-bottom: 20px;
-    }
-    .rule {
-      width: 44px; height: 2px;
-      background: var(--gold); margin-bottom: 28px;
+    /* film-grain — fixed, pointer-events-none, GPU-cheap */
+    body::after {
+      content: ''; position: fixed; inset: 0; z-index: 90; pointer-events: none;
+      opacity: 0.035; mix-blend-mode: multiply;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
     }
 
-    /* ─── BUTTONS ─── */
-    .btn-gold, .btn-outline {
-      display: inline-flex; align-items: center; justify-content: center;
-      padding: 14px 32px;
-      font-family: var(--sans); font-weight: 500;
-      font-size: .825rem; letter-spacing: .1em; text-transform: uppercase;
-      text-decoration: none; cursor: pointer; border: none;
-      transition: background .2s, color .2s, transform .15s;
-      white-space: nowrap;
+    .wrap { max-width: var(--max); margin-inline: auto; padding-inline: var(--gut); }
+    .eyebrow {
+      font-size: 0.72rem; font-weight: 500; letter-spacing: 0.22em;
+      text-transform: uppercase; color: var(--gold-ink);
     }
-    .btn-gold { background: var(--gold); color: var(--white); }
-    .btn-gold:hover { background: var(--gold-hover); transform: translateY(-1px); }
-    .btn-outline { background: transparent; color: var(--black); border: 1.5px solid var(--black); }
-    .btn-outline:hover { background: var(--black); color: var(--white); }
-    .btn-outline-white { background: transparent; color: var(--white); border: 1.5px solid rgba(255,255,255,.5); }
-    .btn-outline-white:hover { border-color: var(--gold); color: var(--gold); }
 
-    /* ═══════════════════════════
-       NAVIGATION
-    ═══════════════════════════ */
-    .nav {
-      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
-      background: rgba(250,248,244,.96);
-      backdrop-filter: blur(10px);
-      border-bottom: 1px solid transparent;
-      transition: border-color .3s, box-shadow .3s;
+    /* ── buttons ── */
+    .btn {
+      --pad-x: 1.7rem;
+      display: inline-flex; align-items: center; gap: 0.7rem;
+      padding: 0.95rem var(--pad-x);
+      font-family: var(--sans); font-size: 0.9rem; font-weight: 500;
+      letter-spacing: 0.01em; cursor: pointer; border: none;
+      transition: background 0.3s var(--ease-out), color 0.3s var(--ease-out),
+                  transform 0.18s var(--ease-out), box-shadow 0.3s var(--ease-out);
     }
-    .nav.scrolled {
-      border-bottom-color: var(--gold-light);
-      box-shadow: 0 2px 24px rgba(0,0,0,.06);
-    }
-    .nav-inner {
-      max-width: var(--max); margin: 0 auto;
+    .btn:active { transform: scale(0.97); }
+    .btn .arr { transition: transform 0.3s var(--ease-out); }
+    .btn:hover .arr { transform: translateX(4px); }
+
+    .btn-primary { background: var(--ink); color: var(--cream-ink); box-shadow: var(--shadow-sm); }
+    .btn-primary:hover { background: oklch(0.27 0.018 64); box-shadow: var(--shadow-md); }
+    .btn-ghost { background: transparent; color: var(--ink); box-shadow: inset 0 0 0 1px var(--line); }
+    .btn-ghost:hover { background: var(--surface); box-shadow: inset 0 0 0 1px var(--gold); color: var(--gold-ink); }
+    .btn-light { background: var(--cream-ink); color: var(--ink); }
+    .btn-light:hover { background: oklch(1 0 0); }
+    .btn-outline-d { background: transparent; color: var(--cream-ink); box-shadow: inset 0 0 0 1px var(--line-dark); }
+    .btn-outline-d:hover { box-shadow: inset 0 0 0 1px var(--gold); color: var(--gold); }
+
+    /* ════════════════════════════════════════════
+       SCROLL REVEAL  (enhances an already-visible default)
+    ════════════════════════════════════════════ */
+    .js .reveal { opacity: 0; transform: translateY(18px); will-change: transform, opacity;
+      transition: opacity 0.7s var(--ease-out), transform 0.7s var(--ease-out); }
+    .js .reveal.in { opacity: 1; transform: none; }
+    .js [data-d="1"] { transition-delay: 0.07s; }
+    .js [data-d="2"] { transition-delay: 0.14s; }
+    .js [data-d="3"] { transition-delay: 0.21s; }
+
+    /* ════════════════════════════════════════════
+       NAV  ·  floating glass pill
+    ════════════════════════════════════════════ */
+    .nav { position: fixed; inset: 0 0 auto 0; z-index: 100; display: flex; justify-content: center;
+      padding-top: clamp(12px, 2vw, 22px); transition: padding-top 0.4s var(--ease-out); }
+    .nav.docked { padding-top: 8px; }
+    .nav-pill {
+      width: min(var(--max), calc(100% - 2 * var(--gut)));
       display: flex; align-items: center; justify-content: space-between;
-      height: 70px; padding: 0 32px;
+      padding: 0.55rem 0.7rem 0.55rem 1.4rem;
+      background: oklch(0.969 0.010 79 / 0.72);
+      backdrop-filter: blur(16px) saturate(1.4);
+      -webkit-backdrop-filter: blur(16px) saturate(1.4);
+      box-shadow: inset 0 0 0 1px var(--line-2);
+      border-radius: 100px;
+      transition: box-shadow 0.4s var(--ease-out), background 0.4s var(--ease-out);
     }
-    .nav-logo {
-      font-family: var(--serif); font-size: 1.3rem; font-weight: 700;
-      text-decoration: none; color: var(--black); letter-spacing: .02em;
-    }
-    .nav-logo em { font-style: normal; color: var(--gold); }
-    .nav-links { display: flex; list-style: none; gap: 32px; align-items: center; }
-    .nav-links a {
-      color: var(--grey); text-decoration: none;
-      font-size: .8rem; font-weight: 400; letter-spacing: .06em; text-transform: uppercase;
-      transition: color .2s;
-    }
-    .nav-links a:hover { color: var(--gold); }
-    .nav-links .cta-link {
-      padding: 9px 22px;
-      background: var(--gold); color: var(--white) !important;
-      font-size: .78rem;
-    }
-    .nav-links .cta-link:hover { background: var(--gold-hover); }
-    .nav-burger {
-      display: none; flex-direction: column; gap: 5px;
-      background: none; border: none; cursor: pointer; padding: 4px;
-    }
-    .nav-burger span {
-      display: block; width: 24px; height: 1.5px;
-      background: var(--black); transition: all .3s;
-    }
-    .nav-burger.open span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
-    .nav-burger.open span:nth-child(2) { opacity: 0; }
-    .nav-burger.open span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
-    .nav-drawer {
-      display: none; position: fixed; top: 70px; left: 0; right: 0;
-      background: var(--cream); border-bottom: 1px solid var(--gold-light);
-      padding: 24px 32px 32px; z-index: 99;
-      box-shadow: 0 8px 24px rgba(0,0,0,.08);
-    }
-    .nav-drawer.open { display: block; }
-    .nav-drawer ul { list-style: none; display: flex; flex-direction: column; gap: 18px; }
-    .nav-drawer a {
-      color: var(--grey); text-decoration: none;
-      font-size: .95rem; font-weight: 400; letter-spacing: .05em; text-transform: uppercase;
-      display: block; padding: 4px 0;
-      transition: color .2s;
-    }
-    .nav-drawer a:hover { color: var(--gold); }
-    @media (max-width: 780px) {
+    .nav.docked .nav-pill { box-shadow: var(--shadow-md), inset 0 0 0 1px var(--line-2); background: oklch(0.975 0.010 79 / 0.86); }
+    .brand { font-family: var(--serif); font-size: 1.22rem; font-weight: 500; color: var(--ink); letter-spacing: -0.01em; }
+    .brand i { font-style: italic; color: var(--gold-ink); }
+    .nav-links { display: flex; align-items: center; gap: 2rem; list-style: none; }
+    .nav-links a { font-size: 0.88rem; color: var(--ink-2); transition: color 0.25s var(--ease-out); }
+    .nav-links a:hover { color: var(--gold-ink); }
+    .nav-cta { padding: 0.6rem 1.2rem; }
+    .burger { display: none; width: 44px; height: 44px; background: none; border: none; cursor: pointer;
+      position: relative; }
+    .burger span { position: absolute; left: 11px; width: 22px; height: 1.5px; background: var(--ink);
+      transition: transform 0.4s var(--ease-drawer), opacity 0.2s var(--ease-out); }
+    .burger span:nth-child(1) { top: 17px; } .burger span:nth-child(2) { top: 22px; } .burger span:nth-child(3) { top: 27px; }
+    .burger.open span:nth-child(1) { transform: translateY(5px) rotate(45deg); }
+    .burger.open span:nth-child(2) { opacity: 0; }
+    .burger.open span:nth-child(3) { transform: translateY(-5px) rotate(-45deg); }
+
+    .overlay { position: fixed; inset: 0; z-index: 95; background: oklch(0.969 0.010 79 / 0.97);
+      backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+      display: flex; flex-direction: column; justify-content: center; padding: var(--gut);
+      opacity: 0; visibility: hidden; transition: opacity 0.4s var(--ease-out), visibility 0.4s; }
+    .overlay.open { opacity: 1; visibility: visible; }
+    .overlay ul { list-style: none; display: flex; flex-direction: column; gap: 0.4rem; }
+    .overlay a { font-family: var(--serif); font-size: clamp(2rem, 9vw, 3.4rem); color: var(--ink);
+      opacity: 0; transform: translateY(20px); transition: opacity 0.5s var(--ease-out), transform 0.5s var(--ease-out), color 0.25s; }
+    .overlay a:hover { color: var(--gold-ink); }
+    .overlay.open a { opacity: 1; transform: none; }
+    .overlay.open li:nth-child(1) a { transition-delay: 0.08s; }
+    .overlay.open li:nth-child(2) a { transition-delay: 0.13s; }
+    .overlay.open li:nth-child(3) a { transition-delay: 0.18s; }
+    .overlay.open li:nth-child(4) a { transition-delay: 0.23s; }
+    .overlay.open li:nth-child(5) a { transition-delay: 0.28s; }
+    .overlay-foot { margin-top: 2.5rem; font-size: 0.95rem; color: var(--ink-2); display: flex; flex-direction: column; gap: 0.3rem; }
+    .overlay-foot a { font-family: var(--sans); font-size: 0.95rem; }
+
+    @media (max-width: 820px) {
       .nav-links { display: none; }
-      .nav-burger { display: flex; }
+      .burger { display: block; }
     }
 
-    /* ═══════════════════════════
-       HERO
-    ═══════════════════════════ */
-    .hero {
-      min-height: 100vh; padding-top: 70px;
-      display: flex; align-items: center;
-      position: relative; overflow: hidden;
-      background: var(--cream);
-    }
-    .hero-glow {
-      position: absolute; inset: 0; pointer-events: none;
-      background:
-        radial-gradient(ellipse at 68% 28%, rgba(201,169,110,.13) 0%, transparent 55%),
-        radial-gradient(ellipse at 15% 78%, rgba(201,169,110,.08) 0%, transparent 45%);
-    }
-    .hero-ring {
-      position: absolute; right: -80px; top: 50%; transform: translateY(-50%);
-      width: 560px; height: 560px; border-radius: 50%;
-      border: 1px solid rgba(201,169,110,.18); pointer-events: none;
-    }
-    .hero-ring::after {
-      content: ''; position: absolute; inset: 48px; border-radius: 50%;
-      border: 1px solid rgba(201,169,110,.1);
-    }
-    .hero-grid {
-      position: relative; width: 100%; max-width: var(--max); margin: 0 auto;
-      padding: 80px 32px;
-      display: grid; grid-template-columns: 1fr 1fr;
-      gap: 64px; align-items: center;
-    }
-    .hero-eyebrow {
-      display: flex; align-items: center; gap: 12px; margin-bottom: 24px;
-    }
-    .hero-eyebrow hr {
-      width: 28px; height: 1px; border: none; background: var(--gold);
-    }
-    .hero-eyebrow span {
-      font-size: .68rem; font-weight: 500; letter-spacing: .18em;
-      text-transform: uppercase; color: var(--gold);
-    }
-    .hero-h1 {
-      font-family: var(--serif);
-      font-size: clamp(3.2rem, 6.5vw, 5.5rem);
-      font-weight: 700; line-height: 1.0;
-      color: var(--black); margin-bottom: 6px;
-    }
-    .hero-h1 em { font-style: italic; color: var(--gold); }
-    .hero-slogan {
-      font-family: var(--serif); font-style: italic;
-      font-size: clamp(.95rem, 1.6vw, 1.2rem);
-      color: var(--grey); line-height: 1.6; margin-bottom: 40px;
-    }
-    .hero-actions { display: flex; gap: 14px; flex-wrap: wrap; margin-bottom: 52px; }
-    .hero-stats {
-      display: flex; gap: 36px; flex-wrap: wrap;
-      padding-top: 28px; border-top: 1px solid var(--gold-light);
-    }
-    .stat-val {
-      font-family: var(--serif); font-size: 1.9rem; font-weight: 700;
-      color: var(--gold); line-height: 1; margin-bottom: 4px;
-    }
-    .stat-lbl {
-      font-size: .72rem; letter-spacing: .07em; text-transform: uppercase;
-      color: var(--grey-light);
-    }
-    /* Hero visual */
+    /* ════════════════════════════════════════════
+       HERO  ·  editorial split
+    ════════════════════════════════════════════ */
+    .hero { position: relative; padding: clamp(8rem, 18vh, 12rem) 0 clamp(4rem, 8vh, 7rem); }
+    .hero-glow { position: absolute; inset: 0; z-index: -1; pointer-events: none;
+      background: radial-gradient(60% 50% at 78% 22%, oklch(0.745 0.090 72 / 0.16), transparent 70%),
+                  radial-gradient(50% 45% at 8% 90%, oklch(0.745 0.090 72 / 0.08), transparent 70%); }
+    .hero-grid { display: grid; grid-template-columns: 1.05fr 0.95fr; gap: clamp(2rem, 5vw, 5rem); align-items: center; }
+    .hero-loc { display: inline-flex; align-items: center; gap: 0.7rem; margin-bottom: 1.6rem; }
+    .hero-loc::before { content: ''; width: 26px; height: 1px; background: var(--gold); }
+    .hero h1 { font-size: clamp(3.4rem, 9vw, 5.6rem); letter-spacing: -0.03em; color: var(--ink); }
+    .hero h1 i { font-style: italic; font-weight: 400; color: var(--gold-ink); display: block; }
+    .hero-slogan { font-family: var(--serif); font-style: italic; font-size: clamp(1.15rem, 2.2vw, 1.5rem);
+      color: var(--ink-2); line-height: 1.45; margin: 1.6rem 0 2.4rem; max-width: 30ch; }
+    .hero-cta { display: flex; flex-wrap: wrap; gap: 0.9rem; align-items: center; }
+    .hero-trust { display: inline-flex; align-items: center; gap: 0.6rem; margin-top: 2.4rem;
+      font-size: 0.88rem; color: var(--ink-2); }
+    .hero-trust b { color: var(--ink); font-weight: 600; font-variant-numeric: tabular-nums; }
+    .stars { color: var(--gold); letter-spacing: 1px; font-size: 0.85rem; }
+
+    /* hero visual — editorial frame, soft shadow (no border pairing) */
     .hero-visual { position: relative; }
-    .hero-frame {
-      aspect-ratio: 4/5;
-      background: linear-gradient(145deg, var(--gold-pale) 0%, var(--cream-mid) 100%);
-      border: 1px solid var(--gold-light);
-      display: flex; flex-direction: column;
-      align-items: center; justify-content: center; gap: 12px;
-      overflow: hidden;
-    }
-    .hero-frame svg { width: 52px; height: 52px; color: var(--gold); opacity: .35; }
-    .hero-frame figcaption {
-      font-size: .65rem; letter-spacing: .14em; text-transform: uppercase;
-      color: var(--gold); opacity: .5;
-    }
-    .hero-badge {
-      position: absolute; bottom: -18px; left: -18px;
-      width: 96px; height: 96px; border-radius: 50%;
-      background: var(--gold); color: white;
-      display: flex; flex-direction: column;
-      align-items: center; justify-content: center;
-      box-shadow: 0 8px 28px rgba(201,169,110,.45);
-    }
-    .hero-badge .bv { font-family: var(--serif); font-size: 1.5rem; font-weight: 700; line-height: 1; }
-    .hero-badge .bl { font-size: .58rem; letter-spacing: .07em; text-transform: uppercase; opacity: .9; }
-    @media (max-width: 860px) {
-      .hero-grid { grid-template-columns: 1fr; gap: 40px; }
-      .hero-visual { display: none; }
-      .hero-ring { display: none; }
-    }
-    @media (max-width: 480px) {
-      .hero-actions { flex-direction: column; }
-      .hero-actions a { text-align: center; }
-      .hero-stats { gap: 20px; }
+    .hero-photo { position: relative; aspect-ratio: 4 / 5; border-radius: 6px; overflow: hidden;
+      background: linear-gradient(150deg, var(--gold-soft), var(--bg-2));
+      box-shadow: var(--shadow-lg); display: grid; place-items: center; }
+    .hero-photo .ph { display: flex; flex-direction: column; align-items: center; gap: 0.8rem; color: var(--gold-ink); opacity: 0.55; }
+    .hero-photo .ph svg { width: 46px; height: 46px; }
+    .hero-photo .ph span { font-size: 0.66rem; letter-spacing: 0.16em; text-transform: uppercase; }
+    .hero-chip { position: absolute; left: -1.4rem; bottom: 1.8rem; background: var(--surface);
+      box-shadow: var(--shadow-md); border-radius: 100px; padding: 0.7rem 1.2rem;
+      display: flex; align-items: center; gap: 0.7rem; }
+    .hero-chip .stars { font-size: 0.95rem; }
+    .hero-chip b { font-family: var(--serif); font-size: 1.15rem; color: var(--ink); font-weight: 500; }
+    .hero-chip small { font-size: 0.72rem; color: var(--ink-3); display: block; }
+
+    @media (max-width: 880px) {
+      .hero-grid { grid-template-columns: 1fr; }
+      .hero-visual { order: -1; max-width: 380px; }
+      .hero-chip { left: auto; right: -0.6rem; }
     }
 
-    /* ═══════════════════════════
-       ABOUT
-    ═══════════════════════════ */
-    .about { background: var(--cream-dark); padding: 100px 0; }
-    .about-grid {
-      display: grid; grid-template-columns: 1fr 1fr;
-      gap: 80px; align-items: center;
+    /* ════════════════════════════════════════════
+       SECTION RHYTHM
+    ════════════════════════════════════════════ */
+    section { padding: clamp(4.5rem, 10vw, 8rem) 0; }
+    .sec-head { max-width: 52ch; margin-bottom: clamp(2.5rem, 5vw, 4rem); }
+    .sec-head h2 { font-size: clamp(2rem, 4.5vw, 3.1rem); margin-top: 0.9rem; }
+    .sec-head p { margin-top: 1.1rem; color: var(--ink-2); font-size: 1.05rem; max-width: 46ch; }
+
+    /* ── ABOUT ── */
+    .about { background: var(--bg-2); }
+    .about-grid { display: grid; grid-template-columns: 0.9fr 1.1fr; gap: clamp(2.5rem, 6vw, 5.5rem); align-items: center; }
+    .about-stack { display: grid; grid-template-columns: 1fr 1fr; gap: 0.7rem; }
+    .about-stack .ph { background: linear-gradient(150deg, var(--gold-soft), var(--surface));
+      border-radius: 5px; display: grid; place-items: center; color: var(--gold-ink); box-shadow: var(--shadow-sm); }
+    .about-stack .ph span { font-size: 0.62rem; letter-spacing: 0.14em; text-transform: uppercase; opacity: 0.6; }
+    .about-stack .ph:first-child { grid-column: span 2; aspect-ratio: 16 / 10; }
+    .about-stack .ph:not(:first-child) { aspect-ratio: 1; }
+    .about-body p + p { margin-top: 1.1rem; }
+    .about-body strong { color: var(--ink); font-weight: 600; }
+    .about-sign { margin-top: 2rem; font-family: var(--serif); font-style: italic; font-size: 1.4rem; color: var(--gold-ink); }
+    .about-sign small { display: block; font-family: var(--sans); font-style: normal; font-size: 0.78rem;
+      letter-spacing: 0.16em; text-transform: uppercase; color: var(--ink-3); margin-top: 0.4rem; }
+    @media (max-width: 820px) { .about-grid { grid-template-columns: 1fr; } }
+
+    /* ── SERVICES  ·  editorial list, not a card grid ── */
+    .svc-list { border-top: 1px solid var(--line); }
+    .svc-cols { display: grid; grid-template-columns: 1fr 1fr; column-gap: clamp(2rem, 5vw, 5rem); }
+    .svc {
+      display: grid; grid-template-columns: auto 1fr; gap: 1.2rem; align-items: baseline;
+      padding: 1.5rem 0.5rem 1.5rem 0; border-bottom: 1px solid var(--line);
+      transition: padding-left 0.35s var(--ease-out);
     }
-    .about-imgs { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
-    .about-img {
-      background: linear-gradient(135deg, var(--gold-pale) 0%, var(--cream-mid) 100%);
-      border: 1px solid var(--gold-light);
-      display: flex; align-items: center; justify-content: center;
-    }
-    .about-img:first-child { grid-column: span 2; aspect-ratio: 16/9; }
-    .about-img:not(:first-child) { aspect-ratio: 1; }
-    .about-img span {
-      font-size: .62rem; letter-spacing: .12em; text-transform: uppercase;
-      color: var(--gold); opacity: .5;
-    }
-    .about-body p { color: var(--grey); margin-bottom: 18px; font-size: .975rem; }
-    .about-values {
-      display: grid; grid-template-columns: 1fr 1fr;
-      gap: 12px; margin-top: 32px;
-    }
-    .about-val {
-      display: flex; align-items: flex-start; gap: 10px;
-    }
-    .about-val::before {
-      content: ''; width: 5px; height: 5px; border-radius: 50%;
-      background: var(--gold); margin-top: 9px; flex-shrink: 0;
-    }
-    .about-val span { font-size: .845rem; color: var(--grey); line-height: 1.5; }
-    @media (max-width: 768px) {
-      .about-grid { grid-template-columns: 1fr; gap: 48px; }
+    .svc:hover { padding-left: 0.7rem; }
+    .svc-idx { font-family: var(--serif); font-size: 0.82rem; color: var(--gold-ink); font-variant-numeric: tabular-nums; padding-top: 0.35rem; }
+    .svc-name { font-family: var(--serif); font-size: 1.35rem; color: var(--ink); transition: color 0.3s var(--ease-out); }
+    .svc:hover .svc-name { color: var(--gold-ink); }
+    .svc-desc { font-size: 0.92rem; color: var(--ink-2); margin-top: 0.2rem; }
+    @media (max-width: 720px) { .svc-cols { grid-template-columns: 1fr; } }
+
+    /* ── GALLERY  ·  dark editorial mosaic, varied sizes ── */
+    .gallery { background: var(--bg-deep); }
+    .gallery .eyebrow { color: var(--gold); }
+    .gallery h2 { color: var(--cream-ink); }
+    .gallery .sec-head p { color: var(--cream-mut); }
+    .mosaic { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0.6rem; }
+    .gph { position: relative; overflow: hidden; border-radius: 4px; min-height: 150px;
+      background: linear-gradient(150deg, oklch(0.30 0.02 64), oklch(0.24 0.016 64));
+      box-shadow: inset 0 0 0 1px var(--line-dark); display: grid; place-items: center; }
+    .gph::after { content: ''; position: absolute; inset: 0; background: var(--gold);
+      opacity: 0; transition: opacity 0.4s var(--ease-out); mix-blend-mode: soft-light; }
+    .gph:hover::after { opacity: 0.25; }
+    .gph span { font-size: 0.62rem; letter-spacing: 0.16em; text-transform: uppercase; color: var(--gold); opacity: 0.5; z-index: 1; }
+    .gph.big { grid-column: span 2; grid-row: span 2; }
+    .gph.wide { grid-column: span 2; }
+    @media (max-width: 640px) {
+      .mosaic { grid-template-columns: repeat(2, 1fr); }
+      .gph.big { grid-column: span 2; grid-row: span 1; }
     }
 
-    /* ═══════════════════════════
-       CTA BAND
-    ═══════════════════════════ */
-    .cta-band {
-      background: var(--black); padding: 64px 0;
-      text-align: center;
-    }
-    .cta-band h2 {
-      font-family: var(--serif); font-style: italic;
-      font-size: clamp(1.6rem, 3.5vw, 2.6rem);
-      color: var(--white); margin-bottom: 8px;
-    }
-    .cta-band p { color: rgba(255,255,255,.5); font-size: .9rem; margin-bottom: 32px; }
-    .cta-band .btn-gold { margin: 0 8px 12px; }
-    .cta-band .btn-outline-white { margin: 0 8px 12px; display: inline-flex; }
+    /* ── TESTIMONIALS  ·  featured + supporting, no side-stripes ── */
+    .quotes { display: grid; grid-template-columns: 1.3fr 1fr; gap: 1rem; }
+    .q { background: var(--surface); border-radius: 6px; padding: clamp(1.6rem, 3vw, 2.4rem); box-shadow: var(--shadow-sm); }
+    .q-mark { font-family: var(--serif); font-size: 3rem; line-height: 0.6; color: var(--gold); display: block; margin-bottom: 0.6rem; }
+    .q-lead .q-text { font-family: var(--serif); font-size: clamp(1.3rem, 2.6vw, 1.75rem); font-style: italic;
+      color: var(--ink); line-height: 1.4; }
+    .q-text { color: var(--ink-2); }
+    .q-meta { margin-top: 1.4rem; display: flex; align-items: center; gap: 0.6rem; }
+    .q-meta .stars { font-size: 0.8rem; }
+    .q-meta cite { font-style: normal; font-size: 0.8rem; color: var(--ink-3); }
+    .q-grid { display: grid; gap: 1rem; }
+    .q-grid .q-text { font-size: 0.95rem; line-height: 1.6; }
+    .quotes-foot { margin-top: 1rem; display: flex; flex-wrap: wrap; align-items: center; gap: 1rem 1.5rem;
+      padding-top: 1.6rem; border-top: 1px solid var(--line); }
+    .quotes-foot .big { font-family: var(--serif); font-size: 2.2rem; color: var(--gold-ink); font-variant-numeric: tabular-nums; }
+    .quotes-foot div small { display: block; font-size: 0.82rem; color: var(--ink-2); }
+    @media (max-width: 860px) { .quotes { grid-template-columns: 1fr; } }
 
-    /* ═══════════════════════════
-       SERVICES
-    ═══════════════════════════ */
-    .services { background: var(--cream); padding: 100px 0; }
-    .services-header { text-align: center; margin-bottom: 56px; }
-    .services-header .rule { margin: 0 auto 28px; }
-    .services-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
-      gap: 2px; background: var(--gold-light);
-      border: 1px solid var(--gold-light);
-    }
-    .svc-card {
-      background: var(--cream);
-      padding: 36px 24px; text-align: center;
-      transition: background .22s;
-    }
-    .svc-card:hover { background: var(--gold-pale); }
-    .svc-icon { width: 44px; height: 44px; margin: 0 auto 18px; color: var(--gold); }
-    .svc-name {
-      font-family: var(--serif); font-size: 1rem; font-weight: 600;
-      color: var(--black); margin-bottom: 6px;
-    }
-    .svc-desc { font-size: .78rem; color: var(--grey-light); line-height: 1.5; }
+    /* ── CONTACT ── */
+    .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(2.5rem, 6vw, 5rem); align-items: start; }
+    .hours { width: 100%; border-collapse: collapse; }
+    .hours tr { border-bottom: 1px solid var(--line); }
+    .hours td { padding: 0.85rem 0; font-size: 0.95rem; font-variant-numeric: tabular-nums; }
+    .hours td:first-child { color: var(--ink-2); }
+    .hours td:last-child { text-align: right; color: var(--ink); font-weight: 500; }
+    .hours tr.today { background: linear-gradient(90deg, transparent, var(--gold-soft) 60%, transparent); }
+    .hours tr.shut td { color: var(--ink-3); font-weight: 400; }
+    .ci-list { display: flex; flex-direction: column; gap: 0.4rem; margin-bottom: 1.6rem; }
+    .ci { display: flex; gap: 1rem; padding: 0.9rem 0; border-bottom: 1px solid var(--line-2); align-items: flex-start; }
+    .ci svg { width: 19px; height: 19px; color: var(--gold-ink); flex-shrink: 0; margin-top: 0.25rem; }
+    .ci small { display: block; font-size: 0.7rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--ink-3); margin-bottom: 0.15rem; }
+    .ci a, .ci address { font-style: normal; font-size: 0.98rem; color: var(--ink); transition: color 0.25s var(--ease-out); }
+    .ci a:hover { color: var(--gold-ink); }
+    .contact-actions { display: flex; flex-wrap: wrap; gap: 0.8rem; margin-top: 0.4rem; }
+    .wa { background: oklch(0.72 0.16 150); color: oklch(1 0 0); }
+    .wa:hover { background: oklch(0.66 0.16 150); }
+    .map { margin-top: 1.6rem; border-radius: 6px; overflow: hidden; box-shadow: var(--shadow-sm); height: 250px; }
+    .map iframe { width: 100%; height: 100%; border: 0; display: block; filter: grayscale(0.3) contrast(1.02); }
+    @media (max-width: 820px) { .contact-grid { grid-template-columns: 1fr; } }
 
-    /* ═══════════════════════════
-       GALLERY
-    ═══════════════════════════ */
-    .gallery { background: var(--black); padding: 100px 0; }
-    .gallery-header { text-align: center; margin-bottom: 48px; padding: 0 32px; }
-    .gallery-header .section-label { color: rgba(201,169,110,.8); }
-    .gallery-header h2 { color: var(--white); }
-    .gallery-header p { color: rgba(255,255,255,.45); font-size: .875rem; margin-top: 12px; }
-    .gallery-header .rule { background: var(--gold); margin: 0 auto 28px; }
-    .gallery-mosaic {
-      max-width: var(--max); margin: 0 auto; padding: 0 32px;
-      display: grid; gap: 4px;
-      grid-template-columns: repeat(3, 1fr);
-      grid-template-rows: auto;
-    }
-    .g-item {
-      background: #252525; overflow: hidden; position: relative;
-      display: flex; align-items: center; justify-content: center;
-    }
-    .g-item:nth-child(1) { grid-column: span 2; grid-row: span 2; }
-    .g-item-inner {
-      width: 100%; aspect-ratio: 1;
-      display: flex; align-items: center; justify-content: center;
-      position: relative;
-    }
-    .g-item:nth-child(1) .g-item-inner { aspect-ratio: 1; }
-    .g-bg {
-      position: absolute; inset: 0;
-      background: linear-gradient(135deg, #2A2518 0%, #1E1C17 100%);
-    }
-    .g-label {
-      position: relative; z-index: 1;
-      font-size: .6rem; letter-spacing: .15em; text-transform: uppercase;
-      color: rgba(201,169,110,.4);
-    }
-    .g-hover {
-      position: absolute; inset: 0; z-index: 2;
-      background: rgba(201,169,110,0);
-      transition: background .3s;
-    }
-    .g-item:hover .g-hover { background: rgba(201,169,110,.08); }
-    @media (max-width: 600px) {
-      .gallery-mosaic {
-        grid-template-columns: 1fr 1fr;
-      }
-      .g-item:nth-child(1) { grid-column: span 2; grid-row: span 1; }
-    }
+    /* ── CTA BAND ── */
+    .band { background: var(--bg-deep); text-align: center; }
+    .band h2 { color: var(--cream-ink); font-style: italic; font-size: clamp(1.8rem, 4.5vw, 3rem); max-width: 18ch; margin-inline: auto; }
+    .band p { color: var(--cream-mut); margin: 1rem auto 2.2rem; max-width: 40ch; }
+    .band .hero-cta { justify-content: center; }
 
-    /* ═══════════════════════════
-       TESTIMONIALS
-    ═══════════════════════════ */
-    .testimonials { background: var(--cream-dark); padding: 100px 0; }
-    .testimonials-header { text-align: center; margin-bottom: 56px; }
-    .testimonials-header .rule { margin: 0 auto 28px; }
-    .reviews-grid {
-      display: grid; grid-template-columns: repeat(3, 1fr);
-      gap: 20px;
-    }
-    .review-card {
-      background: var(--cream); padding: 32px 26px;
-      border-left: 3px solid var(--gold);
-    }
-    .review-q {
-      font-family: var(--serif); font-size: 2.8rem; line-height: .8;
-      color: var(--gold-light); margin-bottom: 10px; display: block;
-    }
-    .review-text {
-      font-size: .875rem; color: var(--grey); line-height: 1.75; margin-bottom: 18px;
-    }
-    .review-meta { display: flex; align-items: center; gap: 10px; }
-    .review-stars { color: var(--gold); font-size: .72rem; letter-spacing: 2px; }
-    .review-name { font-size: .78rem; font-weight: 500; color: var(--black); }
-    .reviews-trust {
-      margin-top: 48px; text-align: center;
-    }
-    .trust-badge {
-      display: inline-flex; align-items: center; gap: 20px;
-      padding: 18px 36px; border: 1px solid var(--gold-light);
-      background: var(--cream);
-    }
-    .trust-score {
-      font-family: var(--serif); font-size: 2rem; font-weight: 700; color: var(--gold);
-    }
-    .trust-detail { text-align: left; }
-    .trust-stars { color: var(--gold); font-size: .9rem; margin-bottom: 2px; }
-    .trust-lbl { font-size: .72rem; color: var(--grey-light); }
-    @media (max-width: 900px) { .reviews-grid { grid-template-columns: 1fr 1fr; } }
-    @media (max-width: 580px) { .reviews-grid { grid-template-columns: 1fr; } }
+    /* ── FOOTER ── */
+    footer { background: var(--bg-deep); color: var(--cream-mut); padding: clamp(3.5rem, 7vw, 5rem) 0 2.5rem;
+      box-shadow: inset 0 1px 0 var(--line-dark); }
+    .foot-grid { display: grid; grid-template-columns: 1.6fr 1fr 1fr; gap: clamp(2rem, 5vw, 4rem); }
+    .foot-brand { font-family: var(--serif); font-size: 1.6rem; color: var(--cream-ink); }
+    .foot-brand i { font-style: italic; color: var(--gold); }
+    .foot-slogan { font-family: var(--serif); font-style: italic; font-size: 0.95rem; color: var(--cream-mut);
+      margin: 0.8rem 0 1.6rem; max-width: 28ch; line-height: 1.5; }
+    .foot-social { display: inline-flex; align-items: center; gap: 0.6rem; }
+    .foot-social a { width: 38px; height: 38px; border-radius: 100px; display: grid; place-items: center;
+      box-shadow: inset 0 0 0 1px var(--line-dark); color: var(--cream-mut);
+      transition: color 0.25s var(--ease-out), box-shadow 0.25s var(--ease-out); }
+    .foot-social a:hover { color: var(--gold); box-shadow: inset 0 0 0 1px var(--gold); }
+    .foot-col h4 { font-family: var(--sans); font-size: 0.72rem; letter-spacing: 0.16em; text-transform: uppercase;
+      color: var(--cream-mut); font-weight: 500; margin-bottom: 1rem; }
+    .foot-col ul { list-style: none; display: flex; flex-direction: column; gap: 0.6rem; font-size: 0.9rem; }
+    .foot-col a:hover { color: var(--gold); }
+    .foot-bottom { margin-top: clamp(2.5rem, 5vw, 4rem); padding-top: 1.6rem; box-shadow: inset 0 1px 0 var(--line-dark);
+      display: flex; flex-wrap: wrap; justify-content: space-between; gap: 1rem; font-size: 0.78rem; color: var(--cream-mut); }
+    @media (max-width: 760px) { .foot-grid { grid-template-columns: 1fr; gap: 2.5rem; } }
 
-    /* ═══════════════════════════
-       CONTACT & HOURS
-    ═══════════════════════════ */
-    .contact { background: var(--cream); padding: 100px 0; }
-    .contact-grid {
-      display: grid; grid-template-columns: 1fr 1fr;
-      gap: 80px; align-items: start;
+    /* ════════════════════════════════════════════
+       REDUCED MOTION
+    ════════════════════════════════════════════ */
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+      .js .reveal { opacity: 1; transform: none; }
+      .overlay a { opacity: 1; transform: none; }
     }
-    .contact h2 { font-size: clamp(1.5rem, 3vw, 2.1rem); }
-    .hours-tbl { width: 100%; border-collapse: collapse; margin-top: 8px; }
-    .hours-tbl tr { border-bottom: 1px solid var(--gold-light); }
-    .hours-tbl td { padding: 10px 0; font-size: .875rem; }
-    .hours-tbl td:first-child { color: var(--grey); width: 44%; }
-    .hours-tbl td:last-child { font-weight: 500; color: var(--black); }
-    .hours-tbl .closed td { color: var(--grey-light); }
-    .contact-info { display: flex; flex-direction: column; gap: 18px; margin-bottom: 28px; }
-    .ci {
-      display: flex; align-items: flex-start; gap: 14px;
-    }
-    .ci-icon { width: 18px; height: 18px; color: var(--gold); flex-shrink: 0; margin-top: 3px; }
-    .ci-body { font-size: .875rem; color: var(--grey); line-height: 1.5; }
-    .ci-body strong { display: block; font-weight: 500; color: var(--black); font-size: .72rem; letter-spacing: .06em; text-transform: uppercase; margin-bottom: 2px; }
-    .ci-body a { text-decoration: none; transition: color .2s; }
-    .ci-body a:hover { color: var(--gold); }
-    .map-wrap {
-      margin-top: 24px; border: 1px solid var(--gold-light); overflow: hidden; height: 240px;
-    }
-    .map-wrap iframe { width: 100%; height: 100%; border: none; display: block; }
-    .wa-btn {
-      display: inline-flex; align-items: center; gap: 10px;
-      padding: 12px 24px; background: #25D366; color: white; text-decoration: none;
-      font-size: .825rem; font-weight: 500; letter-spacing: .04em;
-      transition: background .2s; margin-top: 16px;
-    }
-    .wa-btn:hover { background: #1FAD54; }
-    .wa-btn svg { width: 18px; height: 18px; flex-shrink: 0; }
-    @media (max-width: 780px) {
-      .contact-grid { grid-template-columns: 1fr; gap: 56px; }
-    }
-
-    /* ═══════════════════════════
-       FOOTER
-    ═══════════════════════════ */
-    footer {
-      background: var(--black); color: rgba(255,255,255,.5);
-      padding: 64px 0 32px;
-    }
-    .footer-grid {
-      display: grid; grid-template-columns: 2fr 1fr 1fr;
-      gap: 48px; margin-bottom: 48px;
-    }
-    .f-logo {
-      font-family: var(--serif); font-size: 1.7rem; font-weight: 700;
-      color: var(--white); margin-bottom: 10px;
-    }
-    .f-logo em { font-style: normal; color: var(--gold); }
-    .f-slogan {
-      font-family: var(--serif); font-style: italic;
-      font-size: .85rem; color: rgba(255,255,255,.35);
-      line-height: 1.6; margin-bottom: 24px; max-width: 280px;
-    }
-    .f-social { display: flex; gap: 10px; }
-    .f-social a {
-      width: 34px; height: 34px;
-      border: 1px solid rgba(255,255,255,.18);
-      display: flex; align-items: center; justify-content: center;
-      color: rgba(255,255,255,.5); text-decoration: none;
-      transition: border-color .2s, color .2s;
-    }
-    .f-social a:hover { border-color: var(--gold); color: var(--gold); }
-    .f-col h4 {
-      font-family: var(--sans); font-size: .68rem; font-weight: 500;
-      letter-spacing: .16em; text-transform: uppercase;
-      color: rgba(255,255,255,.35); margin-bottom: 18px;
-    }
-    .f-col ul { list-style: none; display: flex; flex-direction: column; gap: 9px; }
-    .f-col li { font-size: .82rem; color: rgba(255,255,255,.5); }
-    .f-col a { text-decoration: none; transition: color .2s; }
-    .f-col a:hover { color: var(--gold); }
-    .f-bottom {
-      padding-top: 24px; border-top: 1px solid rgba(255,255,255,.07);
-      display: flex; align-items: center; justify-content: space-between;
-      gap: 16px; flex-wrap: wrap;
-    }
-    .f-bottom p { font-size: .75rem; color: rgba(255,255,255,.28); }
-    @media (max-width: 768px) {
-      .footer-grid { grid-template-columns: 1fr; gap: 40px; }
+    /* gate hover-only lifts behind real hover devices */
+    @media (hover: none) {
+      .svc:hover { padding-left: 0; }
     }
   </style>
 </head>
 
 <body>
 
-<!-- ═══════════════════════════ NAV ═══════════════════════════ -->
-<nav class="nav" id="main-nav" role="navigation" aria-label="Navegació principal">
-  <div class="nav-inner">
-    <a href="#inici" class="nav-logo" aria-label="Zas Perruqueria — inici">Zas <em>Perruqueria</em></a>
-    <ul class="nav-links" role="list">
+<!-- ───────── NAV ───────── -->
+<nav class="nav" id="nav" aria-label="Navegació principal">
+  <div class="nav-pill">
+    <a href="#dalt" class="brand" aria-label="Zas Perruqueria, inici">Zas <i>Perruqueria</i></a>
+    <ul class="nav-links">
       <li><a href="#nosaltres">Nosaltres</a></li>
       <li><a href="#serveis">Serveis</a></li>
       <li><a href="#galeria">Galeria</a></li>
       <li><a href="#opinions">Opinions</a></li>
-      <li><a href="#contacte" class="cta-link">Reserva ara</a></li>
+      <li><a href="#contacte" class="btn btn-primary nav-cta">Reserva ara</a></li>
     </ul>
-    <button class="nav-burger" id="burger" aria-label="Obrir menú" aria-expanded="false" aria-controls="nav-drawer">
+    <button class="burger" id="burger" aria-label="Obrir menú" aria-expanded="false" aria-controls="overlay">
       <span></span><span></span><span></span>
     </button>
   </div>
 </nav>
 
-<div class="nav-drawer" id="nav-drawer" aria-hidden="true">
-  <ul role="list">
+<div class="overlay" id="overlay" aria-hidden="true">
+  <ul>
     <li><a href="#nosaltres">Nosaltres</a></li>
     <li><a href="#serveis">Serveis</a></li>
     <li><a href="#galeria">Galeria</a></li>
     <li><a href="#opinions">Opinions</a></li>
     <li><a href="#contacte">Reserva ara</a></li>
   </ul>
+  <div class="overlay-foot">
+    <a href="tel:+34937775965">+34 937 77 59 65</a>
+    <a href="mailto:zaspelu@hotmail.com">zaspelu@hotmail.com</a>
+  </div>
 </div>
 
 
-<!-- ═══════════════════════════ HERO ═══════════════════════════ -->
-<section id="inici" class="hero" aria-label="Portada">
+<!-- ───────── HERO ───────── -->
+<header class="hero" id="dalt">
   <div class="hero-glow" aria-hidden="true"></div>
-  <div class="hero-ring" aria-hidden="true"></div>
-
-  <div class="hero-grid container" style="padding-left:32px;padding-right:32px;max-width:var(--max);">
-    <!-- copy -->
+  <div class="wrap hero-grid">
     <div>
-      <div class="hero-eyebrow" aria-hidden="true">
-        <hr><span>Esparreguera · Barcelona</span>
+      <span class="eyebrow hero-loc reveal">Esparreguera · Barcelona</span>
+      <h1 class="reveal" data-d="1">Zas <i>Perruqueria</i></h1>
+      <p class="hero-slogan reveal" data-d="2">La Creativitat i el Benestar és la nostra Inspiració</p>
+      <div class="hero-cta reveal" data-d="3">
+        <a href="#contacte" class="btn btn-primary">Reserva la teva cita <span class="arr" aria-hidden="true">→</span></a>
+        <a href="tel:+34937775965" class="btn btn-ghost">Truca'ns</a>
       </div>
-      <h1 class="hero-h1">Zas<br><em>Perruqueria</em></h1>
-      <p class="hero-slogan">
-        "La Creativitat i el Benestar<br>és la nostra Inspiració"
+      <p class="hero-trust reveal" data-d="3">
+        <span class="stars" aria-hidden="true">★★★★★</span>
+        <span><b>4,6</b> a Google · 85 ressenyes · 92% de recomanació</span>
       </p>
-      <div class="hero-actions">
-        <a href="tel:+34937775965" class="btn-gold">Reserva ara</a>
-        <a href="#serveis" class="btn-outline">Els nostres serveis</a>
-      </div>
-      <div class="hero-stats">
-        <div>
-          <div class="stat-val">4,6★</div>
-          <div class="stat-lbl">Google · 85 ressenyes</div>
-        </div>
-        <div>
-          <div class="stat-val">92%</div>
-          <div class="stat-lbl">Recomanació Facebook</div>
-        </div>
-        <div>
-          <div class="stat-val">+20</div>
-          <div class="stat-lbl">Anys d'experiència</div>
-        </div>
-      </div>
     </div>
 
-    <!-- visual -->
-    <div class="hero-visual" aria-hidden="true">
-      <figure class="hero-frame">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" aria-hidden="true">
-          <path d="M9 3 L6 21M9 3 C9 3 12 6 15 3L12 21M6 21 C6 21 9 18 12 21M15 3 L18 21M12 21 C12 21 15 18 18 21"/>
-        </svg>
-        <figcaption>Foto del saló</figcaption>
+    <div class="hero-visual reveal" data-d="2">
+      <figure class="hero-photo">
+        <div class="ph" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.1">
+            <path d="M8 21c0-7 3-9 4-13 1 4 4 6 4 13M5 7l2.5 2M19 7l-2.5 2M12 3v3"/>
+          </svg>
+          <span>Foto del saló</span>
+        </div>
       </figure>
-      <div class="hero-badge" aria-label="Valoració Google 4.6">
-        <span class="bv">4,6</span>
-        <span class="bl">Google</span>
+      <div class="hero-chip" aria-hidden="true">
+        <span class="stars">★★★★★</span>
+        <div><b>4,6</b><small>Google · Esparreguera</small></div>
       </div>
     </div>
   </div>
-</section>
+</header>
 
 
-<!-- ═══════════════════════════ ABOUT ═══════════════════════════ -->
-<section id="nosaltres" class="about" aria-labelledby="about-title">
-  <div class="container">
-    <div class="about-grid">
-      <!-- images -->
-      <div class="about-imgs" aria-hidden="true">
-        <div class="about-img"><span>Saló Zas</span></div>
-        <div class="about-img"><span>Inma</span></div>
-        <div class="about-img"><span>Rosa</span></div>
-      </div>
-
-      <!-- text -->
-      <div class="about-body">
-        <span class="section-label">Nosaltres</span>
-        <h2 class="section-title" id="about-title">Inma i Rosa,<br>dues dècades de passió</h2>
-        <div class="rule"></div>
-        <p>
-          Zas Perruqueria va néixer de la mà d'<strong>Inma</strong> i <strong>Rosa</strong>, dues professionals que han dedicat més de vint anys a l'art capil·lar. Des del primer dia, el seu objectiu ha estat senzill: que cada client surti del saló sentint-se millor que quan va entrar.
-        </p>
-        <p>
-          La seva filosofia combina la formació contínua en les últimes tendències amb l'ús de productes d'alta qualitat i origen natural. A Zas, l'atenció és personalitzada i propera — mai et sentiràs un número.
-        </p>
-        <p>
-          L'ambient del saló és acollidor i relaxant, pensat perquè l'experiència sigui tant estètica com de benestar. La fidelitat de les seves clientes —moltes des de l'inici— n'és la millor prova.
-        </p>
-        <div class="about-values" aria-label="Valors del saló">
-          <div class="about-val"><span>Formació contínua</span></div>
-          <div class="about-val"><span>Productes naturals</span></div>
-          <div class="about-val"><span>Atenció personalitzada</span></div>
-          <div class="about-val"><span>Ambient acollidor</span></div>
-          <div class="about-val"><span>Creativitat</span></div>
-          <div class="about-val"><span>Benestar</span></div>
-        </div>
-      </div>
+<!-- ───────── ABOUT ───────── -->
+<section class="about" id="nosaltres" aria-labelledby="about-h">
+  <div class="wrap about-grid">
+    <div class="about-stack reveal" aria-hidden="true">
+      <div class="ph"><span>El saló</span></div>
+      <div class="ph"><span>Inma</span></div>
+      <div class="ph"><span>Rosa</span></div>
     </div>
-  </div>
-</section>
-
-
-<!-- ═══════════════════════════ CTA BAND ═══════════════════════════ -->
-<div class="cta-band" role="complementary" aria-label="Reserva cita">
-  <div class="container">
-    <h2>Vine a viure l'experiència Zas</h2>
-    <p>Truca'ns o escriu-nos — t'atenem amb molt de gust</p>
-    <a href="tel:+34937775965" class="btn-gold">
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true" style="margin-right:8px"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.6 1.18h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.77a16 16 0 0 0 6 6l.91-.91a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
-      +34 937 77 59 65
-    </a>
-    <a href="mailto:zaspelu@hotmail.com" class="btn-outline-white" style="display:inline-flex;align-items:center;padding:14px 32px;">Escriu-nos</a>
-  </div>
-</div>
-
-
-<!-- ═══════════════════════════ SERVICES ═══════════════════════════ -->
-<section id="serveis" class="services" aria-labelledby="serveis-title">
-  <div class="container">
-    <div class="services-header">
-      <span class="section-label">El que fem</span>
-      <h2 class="section-title" id="serveis-title">Els nostres serveis</h2>
-      <div class="rule"></div>
-      <p style="color:var(--grey);font-size:.9rem;max-width:480px;margin:0 auto;">
-        Oferim una àmplia gamma de serveis per a tota la família, sempre amb els millors productes i tècniques actuals.
+    <div class="about-body reveal" data-d="1">
+      <span class="eyebrow">Nosaltres</span>
+      <h2 id="about-h">Dues dècades donant<br>forma a la confiança</h2>
+      <p style="margin-top:1.6rem;">
+        Al capdavant de Zas hi ha <strong>Inma</strong> i <strong>Rosa</strong>, dues professionals que fa més de vint anys que conviuen amb les tisores. La seva manera de treballar parteix d'una idea senzilla: que cada persona surti del saló sentint-se millor que quan hi va entrar.
+      </p>
+      <p>
+        Es formen contínuament per dominar les tècniques actuals i trien productes naturals i de qualitat. L'atenció és propera i personalitzada: t'aconsellen el que de debò t'afavoreix, mai una recepta repetida.
+      </p>
+      <p>
+        El resultat és un espai tranquil on la creativitat i el benestar conviuen, i una clientela que els acompanya des de fa anys.
+      </p>
+      <p class="about-sign">Inma &amp; Rosa
+        <small>Zas Perruqueria · des de fa més de 20 anys</small>
       </p>
     </div>
-
-    <div class="services-grid" role="list">
-
-      <!-- Talls -->
-      <article class="svc-card" role="listitem">
-        <div class="svc-icon" aria-hidden="true">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4">
-            <circle cx="6" cy="6" r="3"/><circle cx="6" cy="18" r="3"/>
-            <line x1="20" y1="4" x2="8.12" y2="15.88"/>
-            <line x1="14.47" y1="14.48" x2="20" y2="20"/>
-            <line x1="8.12" y1="8.12" x2="12" y2="12"/>
-          </svg>
-        </div>
-        <h3 class="svc-name">Talls</h3>
-        <p class="svc-desc">Per a dona i home. Adaptats a la teva morfologia i estil de vida.</p>
-      </article>
-
-      <!-- Tints -->
-      <article class="svc-card" role="listitem">
-        <div class="svc-icon" aria-hidden="true">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4">
-            <path d="M12 22a7 7 0 0 0 7-7c0-2-1-3.9-3-5.5S12 2 12 2S8 7.9 6 9.5 5 13 5 15a7 7 0 0 0 7 7z"/>
-          </svg>
-        </div>
-        <h3 class="svc-name">Tints i Metxes</h3>
-        <p class="svc-desc">Tota mena de tècniques de coloració amb productes naturals d'alta qualitat.</p>
-      </article>
-
-      <!-- Balayage -->
-      <article class="svc-card" role="listitem">
-        <div class="svc-icon" aria-hidden="true">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4">
-            <path d="M3 17l4-8 4 4 4-6 4 10"/>
-            <path d="M3 21h18"/>
-          </svg>
-        </div>
-        <h3 class="svc-name">Balayage</h3>
-        <p class="svc-desc">Tècnica de llum natural degradada per a un efecte sol i moviment únics.</p>
-      </article>
-
-      <!-- Extensions -->
-      <article class="svc-card" role="listitem">
-        <div class="svc-icon" aria-hidden="true">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4">
-            <path d="M12 2v20M8 6l4-4 4 4M8 18l4 4 4-4M2 12h20"/>
-          </svg>
-        </div>
-        <h3 class="svc-name">Extensions</h3>
-        <p class="svc-desc">Cabells 100% naturals aplicats amb la màxima cura i precisió.</p>
-      </article>
-
-      <!-- Queratina -->
-      <article class="svc-card" role="listitem">
-        <div class="svc-icon" aria-hidden="true">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4">
-            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
-          </svg>
-        </div>
-        <h3 class="svc-name">Queratina</h3>
-        <p class="svc-desc">Tractament alisador i regenerador per a un cabell lluminós i suau.</p>
-      </article>
-
-      <!-- Trenats -->
-      <article class="svc-card" role="listitem">
-        <div class="svc-icon" aria-hidden="true">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4">
-            <path d="M8 3c0 5 8 5 8 10s-8 5-8 10"/>
-            <path d="M16 3c0 5-8 5-8 10s8 5 8 10"/>
-          </svg>
-        </div>
-        <h3 class="svc-name">Trenats</h3>
-        <p class="svc-desc">Trenes clàssiques i modernes per a tota ocasió.</p>
-      </article>
-
-      <!-- Coloració -->
-      <article class="svc-card" role="listitem">
-        <div class="svc-icon" aria-hidden="true">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4">
-            <circle cx="12" cy="12" r="4"/>
-            <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/>
-          </svg>
-        </div>
-        <h3 class="svc-name">Coloració i Highlights</h3>
-        <p class="svc-desc">Llums i contrastos personalitzats per potenciar la teva personalitat.</p>
-      </article>
-
-      <!-- Permanents -->
-      <article class="svc-card" role="listitem">
-        <div class="svc-icon" aria-hidden="true">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4">
-            <path d="M12 2a5 5 0 0 1 5 5c0 5-5 7-5 7s-5-2-5-7a5 5 0 0 1 5-5z"/>
-            <path d="M12 14v8M8 18h8"/>
-          </svg>
-        </div>
-        <h3 class="svc-name">Permanents</h3>
-        <p class="svc-desc">Ondulació duradora per donar volum i cos al teu cabell.</p>
-      </article>
-
-      <!-- Rentat -->
-      <article class="svc-card" role="listitem">
-        <div class="svc-icon" aria-hidden="true">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4">
-            <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
-          </svg>
-        </div>
-        <h3 class="svc-name">Rentat i Pentinat</h3>
-        <p class="svc-desc">Ritual complet de neteja i estilisme per a qualsevol ocasió.</p>
-      </article>
-
-      <!-- Assessorament -->
-      <article class="svc-card" role="listitem">
-        <div class="svc-icon" aria-hidden="true">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4">
-            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
-            <circle cx="12" cy="7" r="4"/>
-          </svg>
-        </div>
-        <h3 class="svc-name">Assessorament d'Imatge</h3>
-        <p class="svc-desc">Orientació personalitzada per descobrir el tall i l'estil que millor t'escau.</p>
-      </article>
-
-    </div>
   </div>
 </section>
 
 
-<!-- ═══════════════════════════ GALLERY ═══════════════════════════ -->
-<section id="galeria" class="gallery" aria-labelledby="galeria-title">
-  <div class="gallery-header">
-    <span class="section-label">Treballs</span>
-    <h2 class="section-title" id="galeria-title">La nostra galeria</h2>
-    <div class="rule"></div>
-    <p>Afegeix les teves fotos de referència a través de Facebook o porta-les el dia de la cita.</p>
-  </div>
+<!-- ───────── SERVICES ───────── -->
+<section id="serveis" aria-labelledby="svc-h">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="eyebrow">El que fem</span>
+      <h2 id="svc-h">Serveis pensats per a tu</h2>
+      <p>Per a dona i home, amb productes naturals i tècniques actuals. Cada servei comença amb una conversa sobre el que busques.</p>
+    </div>
 
-  <div class="gallery-mosaic" role="list" aria-label="Galeria de treballs del saló">
-    <div class="g-item" role="listitem" aria-label="Foto destacada del saló">
-      <div class="g-item-inner">
-        <div class="g-bg"></div>
-        <span class="g-label">Foto principal</span>
-        <div class="g-hover"></div>
-      </div>
-    </div>
-    <div class="g-item" role="listitem" aria-label="Tall i color">
-      <div class="g-item-inner">
-        <div class="g-bg"></div>
-        <span class="g-label">Tall &amp; color</span>
-        <div class="g-hover"></div>
-      </div>
-    </div>
-    <div class="g-item" role="listitem" aria-label="Balayage">
-      <div class="g-item-inner">
-        <div class="g-bg"></div>
-        <span class="g-label">Balayage</span>
-        <div class="g-hover"></div>
-      </div>
-    </div>
-    <div class="g-item" role="listitem" aria-label="Extensions">
-      <div class="g-item-inner">
-        <div class="g-bg"></div>
-        <span class="g-label">Extensions</span>
-        <div class="g-hover"></div>
-      </div>
-    </div>
-    <div class="g-item" role="listitem" aria-label="Pentinat">
-      <div class="g-item-inner">
-        <div class="g-bg"></div>
-        <span class="g-label">Pentinat</span>
-        <div class="g-hover"></div>
+    <div class="svc-list reveal" data-d="1">
+      <div class="svc-cols">
+        <article class="svc"><span class="svc-idx">01</span><div><h3 class="svc-name">Talls</h3><p class="svc-desc">Per a dona i home, adaptats a la teva morfologia i ritme de vida.</p></div></article>
+        <article class="svc"><span class="svc-idx">02</span><div><h3 class="svc-name">Tints i metxes</h3><p class="svc-desc">Tota mena de tècniques de color amb acabats naturals i duradors.</p></div></article>
+        <article class="svc"><span class="svc-idx">03</span><div><h3 class="svc-name">Balayage</h3><p class="svc-desc">Llum degradada feta a mà per a un efecte sol amb molt de moviment.</p></div></article>
+        <article class="svc"><span class="svc-idx">04</span><div><h3 class="svc-name">Extensions</h3><p class="svc-desc">Cabell natural aplicat amb cura per guanyar llargada i densitat.</p></div></article>
+        <article class="svc"><span class="svc-idx">05</span><div><h3 class="svc-name">Tractament de queratina</h3><p class="svc-desc">Allisat i nutrició en profunditat per a un cabell suau i lluminós.</p></div></article>
+        <article class="svc"><span class="svc-idx">06</span><div><h3 class="svc-name">Trenats</h3><p class="svc-desc">Trenes clàssiques o de tendència per al dia a dia i ocasions especials.</p></div></article>
+        <article class="svc"><span class="svc-idx">07</span><div><h3 class="svc-name">Coloració i reflexos</h3><p class="svc-desc">Llums i contrastos a mida per realçar el teu to natural.</p></div></article>
+        <article class="svc"><span class="svc-idx">08</span><div><h3 class="svc-name">Permanents</h3><p class="svc-desc">Ondulació duradora amb cos i volum, respectant el cabell.</p></div></article>
+        <article class="svc"><span class="svc-idx">09</span><div><h3 class="svc-name">Rentat i pentinat</h3><p class="svc-desc">El ritual complet de neteja i estil per a qualsevol moment.</p></div></article>
+        <article class="svc"><span class="svc-idx">10</span><div><h3 class="svc-name">Assessorament d'imatge</h3><p class="svc-desc">Orientació personalitzada per trobar el tall i el color que et van.</p></div></article>
       </div>
     </div>
   </div>
 </section>
 
 
-<!-- ═══════════════════════════ TESTIMONIALS ═══════════════════════════ -->
-<section id="opinions" class="testimonials" aria-labelledby="opinions-title">
-  <div class="container">
-    <div class="testimonials-header">
-      <span class="section-label">Opinions</span>
-      <h2 class="section-title" id="opinions-title">Què diuen de nosaltres</h2>
-      <div class="rule"></div>
+<!-- ───────── GALLERY ───────── -->
+<section class="gallery" id="galeria" aria-labelledby="gal-h">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="eyebrow">Treballs</span>
+      <h2 id="gal-h">Una mostra del nostre estil</h2>
+      <p>Aquests espais estan preparats per a fotografies reals del saló. Mentrestant, pots veure'n més al nostre Facebook.</p>
     </div>
-
-    <div class="reviews-grid" role="list">
-
-      <article class="review-card" role="listitem" lang="es">
-        <span class="review-q" aria-hidden="true">"</span>
-        <p class="review-text">
-          "El salón Zas son muy profesionales. Siempre se están formando para seguir las modas actuales. Utilizan muy buenos productos y muy naturales. Te orientan lo que te puede quedar bien con tu físico."
-        </p>
-        <div class="review-meta">
-          <span class="review-stars" aria-label="5 estrelles">★★★★★</span>
-          <span class="review-name">Client de Google</span>
-        </div>
-      </article>
-
-      <article class="review-card" role="listitem" lang="en">
-        <span class="review-q" aria-hidden="true">"</span>
-        <p class="review-text">
-          "Professionals, the best in the area. Super friendly and close treat with clients. Fair prices. I fully recommend it."
-        </p>
-        <div class="review-meta">
-          <span class="review-stars" aria-label="5 estrelles">★★★★★</span>
-          <span class="review-name">Client de Google</span>
-        </div>
-      </article>
-
-      <article class="review-card" role="listitem" lang="en">
-        <span class="review-q" aria-hidden="true">"</span>
-        <p class="review-text">
-          "Booked an appointment during the week and the service was excellent. I took Irma's advice for my haircut and I'm thrilled with the result."
-        </p>
-        <div class="review-meta">
-          <span class="review-stars" aria-label="5 estrelles">★★★★★</span>
-          <span class="review-name">Client de Google</span>
-        </div>
-      </article>
-
-      <article class="review-card" role="listitem" lang="es">
-        <span class="review-q" aria-hidden="true">"</span>
-        <p class="review-text">
-          "Inma y Rosa son verdaderas expertas. Tener un peinado impecable no siempre es tarea fácil, ellas lo hacen posible. Totalmente recomendable. Gracias por hacer especial cada visita."
-        </p>
-        <div class="review-meta">
-          <span class="review-stars" aria-label="5 estrelles">★★★★★</span>
-          <span class="review-name">Client de Google</span>
-        </div>
-      </article>
-
-      <article class="review-card" role="listitem" lang="en">
-        <span class="review-q" aria-hidden="true">"</span>
-        <p class="review-text">
-          "Very special experience… The professional managed to create an atmosphere of calm, respect, and care from the very beginning. I left feeling beautiful and strong."
-        </p>
-        <div class="review-meta">
-          <span class="review-stars" aria-label="5 estrelles">★★★★★</span>
-          <span class="review-name">Client de Google</span>
-        </div>
-      </article>
-
-      <article class="review-card" role="listitem" lang="en">
-        <span class="review-q" aria-hidden="true">"</span>
-        <p class="review-text">
-          "I love how they did my hair, both the cut and the color. Highly recommended."
-        </p>
-        <div class="review-meta">
-          <span class="review-stars" aria-label="5 estrelles">★★★★★</span>
-          <span class="review-name">Client de Facebook</span>
-        </div>
-      </article>
-
-    </div>
-
-    <div class="reviews-trust" aria-label="Valoració global">
-      <div class="trust-badge">
-        <span class="trust-score">4,6</span>
-        <div class="trust-detail">
-          <div class="trust-stars" aria-hidden="true">★★★★★</div>
-          <div class="trust-lbl">Google · 85 ressenyes · 92% Facebook</div>
-        </div>
-      </div>
+    <div class="mosaic reveal" data-d="1" role="list" aria-label="Galeria de treballs (imatges pendents)">
+      <div class="gph big" role="listitem"><span>Imatge destacada</span></div>
+      <div class="gph" role="listitem"><span>Color</span></div>
+      <div class="gph" role="listitem"><span>Balayage</span></div>
+      <div class="gph wide" role="listitem"><span>Pentinat</span></div>
+      <div class="gph" role="listitem"><span>Tall</span></div>
+      <div class="gph" role="listitem"><span>Detall</span></div>
     </div>
   </div>
 </section>
 
 
-<!-- ═══════════════════════════ CONTACT & HOURS ═══════════════════════════ -->
-<section id="contacte" class="contact" aria-labelledby="contacte-title">
-  <div class="container">
-    <div class="contact-grid">
+<!-- ───────── TESTIMONIALS ───────── -->
+<section id="opinions" aria-labelledby="op-h">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="eyebrow">Opinions</span>
+      <h2 id="op-h">El que en diuen els clients</h2>
+    </div>
 
-      <!-- Hours -->
+    <div class="quotes">
+      <figure class="q q-lead reveal" data-d="1">
+        <span class="q-mark" aria-hidden="true">”</span>
+        <blockquote class="q-text" lang="es">Inma y Rosa son verdaderas expertas. Tener un peinado impecable no siempre es tarea fácil, y ellas lo hacen posible. Gracias por hacer especial cada visita.</blockquote>
+        <figcaption class="q-meta"><span class="stars" aria-label="5 sobre 5">★★★★★</span><cite>Ressenya de Google</cite></figcaption>
+      </figure>
+
+      <div class="q-grid">
+        <figure class="q reveal" data-d="2">
+          <blockquote class="q-text">Molt professionals. Sempre s'estan formant per seguir les tendències, fan servir productes molt bons i naturals, i t'orienten sobre el que t'afavoreix.</blockquote>
+          <figcaption class="q-meta"><span class="stars" aria-label="5 sobre 5">★★★★★</span><cite>Ressenya de Google</cite></figcaption>
+        </figure>
+        <figure class="q reveal" data-d="3" lang="en">
+          <blockquote class="q-text">Professionals, the best in the area. Super friendly and close with clients, with fair prices. I fully recommend it.</blockquote>
+          <figcaption class="q-meta"><span class="stars" aria-label="5 out of 5">★★★★★</span><cite>Google review</cite></figcaption>
+        </figure>
+      </div>
+    </div>
+
+    <div class="quotes" style="margin-top:1rem;">
+      <figure class="q reveal" data-d="1" lang="en">
+        <blockquote class="q-text">Booked an appointment during the week and the service was excellent. I took the stylist's advice for my haircut and I'm thrilled with the result.</blockquote>
+        <figcaption class="q-meta"><span class="stars" aria-label="5 out of 5">★★★★★</span><cite>Google review</cite></figcaption>
+      </figure>
+      <figure class="q reveal" data-d="2" lang="en">
+        <blockquote class="q-text">A very special experience. They created an atmosphere of calm, respect and care from the very beginning. I left feeling beautiful and strong.</blockquote>
+        <figcaption class="q-meta"><span class="stars" aria-label="5 out of 5">★★★★★</span><cite>Google review</cite></figcaption>
+      </figure>
+    </div>
+
+    <div class="quotes-foot reveal">
+      <span class="big">4,6</span>
       <div>
-        <span class="section-label">Quan trobar-nos</span>
-        <h2 class="section-title" id="contacte-title">Horari d'obertura</h2>
-        <div class="rule"></div>
-        <table class="hours-tbl" aria-label="Horari del saló">
-          <tbody>
-            <tr>
-              <td>Dilluns</td>
-              <td>9:15 – 13:00 / 15:00 – 19:00</td>
-            </tr>
-            <tr>
-              <td>Dimarts</td>
-              <td>9:15 – 13:00 / 15:00 – 19:00</td>
-            </tr>
-            <tr>
-              <td>Dimecres</td>
-              <td>9:15 – 13:00 / 15:00 – 19:00</td>
-            </tr>
-            <tr>
-              <td>Dijous</td>
-              <td>9:15 – 13:00 / 15:00 – 19:00</td>
-            </tr>
-            <tr>
-              <td>Divendres</td>
-              <td>9:15 – 19:00</td>
-            </tr>
-            <tr>
-              <td>Dissabte</td>
-              <td>9:00 – 14:00</td>
-            </tr>
-            <tr class="closed">
-              <td>Diumenge</td>
-              <td>Tancat</td>
-            </tr>
-          </tbody>
-        </table>
+        <span class="stars" aria-hidden="true">★★★★★</span>
+        <small>Mitjana de 85 ressenyes a Google · 92% de recomanació a Facebook</small>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ───────── CONTACT ───────── -->
+<section id="contacte" aria-labelledby="con-h">
+  <div class="wrap contact-grid">
+    <div class="reveal">
+      <span class="eyebrow">Horari</span>
+      <h2 id="con-h" style="font-size:clamp(1.7rem,3.5vw,2.4rem);margin-top:0.8rem;">Quan trobar-nos</h2>
+      <table class="hours" id="hours" style="margin-top:1.8rem;">
+        <tbody>
+          <tr data-day="1"><td>Dilluns</td><td>9:15–13:00 · 15:00–19:00</td></tr>
+          <tr data-day="2"><td>Dimarts</td><td>9:15–13:00 · 15:00–19:00</td></tr>
+          <tr data-day="3"><td>Dimecres</td><td>9:15–13:00 · 15:00–19:00</td></tr>
+          <tr data-day="4"><td>Dijous</td><td>9:15–13:00 · 15:00–19:00</td></tr>
+          <tr data-day="5"><td>Divendres</td><td>9:15–19:00</td></tr>
+          <tr data-day="6"><td>Dissabte</td><td>9:00–14:00</td></tr>
+          <tr data-day="0" class="shut"><td>Diumenge</td><td>Tancat</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="reveal" data-d="1">
+      <span class="eyebrow">On som</span>
+      <h2 style="font-size:clamp(1.7rem,3.5vw,2.4rem);margin-top:0.8rem;">Contacte</h2>
+      <div class="ci-list" style="margin-top:1.8rem;">
+        <div class="ci">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.6 1.18h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.77a16 16 0 0 0 6 6l.91-.91a2 2 0 0 1 2.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+          <div><small>Telèfon</small><a href="tel:+34937775965">+34 937 77 59 65</a></div>
+        </div>
+        <div class="ci">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-10 6L2 7"/></svg>
+          <div><small>Correu</small><a href="mailto:zaspelu@hotmail.com">zaspelu@hotmail.com</a></div>
+        </div>
+        <div class="ci">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          <div><small>Adreça</small><address><a href="https://maps.google.com/?q=Avinguda+Francesc+Macià,+219,+08292+Esparreguera" target="_blank" rel="noopener">Av. Francesc Macià, 219 (Baixos)<br>08292 Esparreguera, Barcelona</a></address></div>
+        </div>
       </div>
 
-      <!-- Contact -->
-      <div>
-        <span class="section-label">On som</span>
-        <h2 class="section-title">Contacte</h2>
-        <div class="rule"></div>
-
-        <div class="contact-info">
-          <div class="ci">
-            <svg class="ci-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
-              <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.6 1.18h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.77a16 16 0 0 0 6 6l.91-.91a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/>
-            </svg>
-            <div class="ci-body">
-              <strong>Telèfon</strong>
-              <a href="tel:+34937775965">+34 937 77 59 65</a>
-            </div>
-          </div>
-
-          <div class="ci">
-            <svg class="ci-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
-              <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
-              <polyline points="22,6 12,13 2,6"/>
-            </svg>
-            <div class="ci-body">
-              <strong>Correu</strong>
-              <a href="mailto:zaspelu@hotmail.com">zaspelu@hotmail.com</a>
-            </div>
-          </div>
-
-          <div class="ci">
-            <svg class="ci-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
-              <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
-              <circle cx="12" cy="10" r="3"/>
-            </svg>
-            <div class="ci-body">
-              <strong>Adreça</strong>
-              <a href="https://maps.google.com/?q=Avinguda+Francesc+Macià,+219,+Esparreguera" target="_blank" rel="noopener">
-                Avinguda Francesc Macià, 219 (Baixos)<br>
-                08292 Esparreguera, Barcelona
-              </a>
-            </div>
-          </div>
-
-          <div class="ci">
-            <svg class="ci-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
-              <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/>
-            </svg>
-            <div class="ci-body">
-              <strong>Facebook</strong>
-              <a href="https://www.facebook.com/ZasPerruqueria/" target="_blank" rel="noopener">
-                facebook.com/ZasPerruqueria
-              </a>
-            </div>
-          </div>
-        </div>
-
-        <!-- WhatsApp CTA -->
-        <a href="https://wa.me/34937775965" target="_blank" rel="noopener" class="wa-btn" aria-label="Contactar per WhatsApp">
-          <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-            <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/>
-            <path d="M12 0C5.373 0 0 5.373 0 12c0 2.123.554 4.117 1.523 5.851L.057 23.48a.5.5 0 0 0 .612.612l5.629-1.466A11.94 11.94 0 0 0 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.89a9.864 9.864 0 0 1-5.031-1.381l-.36-.214-3.736.972.993-3.637-.235-.374A9.865 9.865 0 0 1 2.11 12C2.11 6.58 6.58 2.11 12 2.11c5.42 0 9.89 4.47 9.89 9.89 0 5.42-4.47 9.89-9.89 9.89z"/>
-          </svg>
-          Escriu per WhatsApp
+      <div class="contact-actions">
+        <a href="https://wa.me/34937775965" target="_blank" rel="noopener" class="btn wa">
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 0C5.37 0 0 5.37 0 12c0 2.12.55 4.12 1.52 5.85L.06 23.48a.5.5 0 0 0 .61.61l5.63-1.46A11.94 11.94 0 0 0 12 24c6.63 0 12-5.37 12-12S18.63 0 12 0zm0 21.9a9.86 9.86 0 0 1-5.03-1.38l-.36-.21-3.74.97.99-3.64-.24-.37A9.87 9.87 0 1 1 12 21.9zm5.47-7.52c-.3-.15-1.76-.87-2.03-.97-.27-.1-.47-.15-.67.15-.2.3-.77.96-.94 1.16-.17.2-.35.22-.64.07-.3-.15-1.26-.46-2.39-1.48-.88-.79-1.48-1.76-1.65-2.06-.17-.3-.02-.46.13-.6.13-.14.3-.35.45-.52.15-.18.2-.3.3-.5.1-.2.05-.37-.02-.52-.08-.15-.67-1.61-.92-2.21-.24-.58-.49-.5-.67-.51h-.57c-.2 0-.52.07-.79.37-.27.3-1.04 1.02-1.04 2.48 0 1.46 1.07 2.88 1.22 3.07.15.2 2.1 3.2 5.08 4.49.71.3 1.26.49 1.69.62.71.23 1.36.2 1.87.12.57-.08 1.76-.72 2-1.41.25-.7.25-1.29.18-1.41-.07-.13-.27-.2-.57-.35z"/></svg>
+          WhatsApp
         </a>
-
-        <!-- Map -->
-        <div class="map-wrap" aria-label="Mapa de localització de Zas Perruqueria">
-          <iframe
-            src="https://maps.google.com/maps?q=Avinguda+Francesc+Macià+219+Esparreguera+Barcelona&output=embed"
-            loading="lazy"
-            title="Localització de Zas Perruqueria a Esparreguera"
-            referrerpolicy="no-referrer-when-downgrade">
-          </iframe>
-        </div>
+        <a href="https://www.facebook.com/ZasPerruqueria/" target="_blank" rel="noopener" class="btn btn-ghost">
+          Facebook <span class="arr" aria-hidden="true">↗</span>
+        </a>
       </div>
 
+      <div class="map">
+        <iframe title="Mapa de Zas Perruqueria a Esparreguera" loading="lazy" referrerpolicy="no-referrer-when-downgrade"
+          src="https://maps.google.com/maps?q=Avinguda+Francesc+Maci%C3%A0+219+Esparreguera&output=embed"></iframe>
+      </div>
     </div>
   </div>
 </section>
 
 
-<!-- ═══════════════════════════ FOOTER ═══════════════════════════ -->
-<footer aria-label="Peu de pàgina">
-  <div class="container">
-    <div class="footer-grid">
-      <!-- Brand -->
+<!-- ───────── CTA BAND ───────── -->
+<section class="band" aria-labelledby="band-h">
+  <div class="wrap">
+    <h2 id="band-h" class="reveal">Vine a viure l'experiència Zas</h2>
+    <p class="reveal" data-d="1">Demana cita per telèfon o WhatsApp. T'esperem a Esparreguera.</p>
+    <div class="hero-cta reveal" data-d="2">
+      <a href="tel:+34937775965" class="btn btn-light">Truca al 937 77 59 65</a>
+      <a href="https://wa.me/34937775965" target="_blank" rel="noopener" class="btn btn-outline-d">Escriu per WhatsApp <span class="arr" aria-hidden="true">→</span></a>
+    </div>
+  </div>
+</section>
+
+
+<!-- ───────── FOOTER ───────── -->
+<footer>
+  <div class="wrap">
+    <div class="foot-grid">
       <div>
-        <div class="f-logo">Zas <em>Perruqueria</em></div>
-        <p class="f-slogan">"La Creativitat i el Benestar<br>és la nostra Inspiració"</p>
-        <div class="f-social" aria-label="Xarxes socials">
+        <div class="foot-brand">Zas <i>Perruqueria</i></div>
+        <p class="foot-slogan">La Creativitat i el Benestar és la nostra Inspiració</p>
+        <div class="foot-social">
           <a href="https://www.facebook.com/ZasPerruqueria/" target="_blank" rel="noopener" aria-label="Facebook de Zas Perruqueria">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-              <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/>
-            </svg>
+            <svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
           </a>
         </div>
       </div>
-
-      <!-- Horari -->
-      <div class="f-col">
+      <div class="foot-col">
         <h4>Horari</h4>
         <ul>
-          <li>Dl–Dj: 9:15–13:00 / 15–19h</li>
-          <li>Divendres: 9:15–19:00</li>
-          <li>Dissabte: 9:00–14:00</li>
-          <li>Diumenge: Tancat</li>
+          <li>Dl – Dj · 9:15–13 / 15–19h</li>
+          <li>Divendres · 9:15–19h</li>
+          <li>Dissabte · 9–14h</li>
+          <li>Diumenge · Tancat</li>
         </ul>
       </div>
-
-      <!-- Contacte -->
-      <div class="f-col">
+      <div class="foot-col">
         <h4>Contacte</h4>
         <ul>
           <li><a href="tel:+34937775965">+34 937 77 59 65</a></li>
@@ -1086,44 +663,54 @@
         </ul>
       </div>
     </div>
-
-    <div class="f-bottom">
-      <p>© <span id="year"></span> Zas Perruqueria · Esparreguera, Barcelona</p>
-      <p>Dissenyat amb cura per al vostre negoci</p>
+    <div class="foot-bottom">
+      <span>© <span id="year"></span> Zas Perruqueria · Esparreguera, Barcelona</span>
+      <span>Perruqueria unisex</span>
     </div>
   </div>
 </footer>
 
 
 <script>
-  // Year
+  // year
   document.getElementById('year').textContent = new Date().getFullYear();
 
-  // Nav scroll state
-  const nav = document.getElementById('main-nav');
-  const onScroll = () => nav.classList.toggle('scrolled', window.scrollY > 20);
-  window.addEventListener('scroll', onScroll, { passive: true });
+  // nav dock state
+  const nav = document.getElementById('nav');
+  const onScroll = () => nav.classList.toggle('docked', window.scrollY > 24);
+  addEventListener('scroll', onScroll, { passive: true });
   onScroll();
 
-  // Mobile burger
+  // mobile overlay + hamburger morph
   const burger = document.getElementById('burger');
-  const drawer = document.getElementById('nav-drawer');
-  burger.addEventListener('click', () => {
-    const open = drawer.classList.toggle('open');
+  const overlay = document.getElementById('overlay');
+  const toggle = (open) => {
     burger.classList.toggle('open', open);
+    overlay.classList.toggle('open', open);
     burger.setAttribute('aria-expanded', open);
-    drawer.setAttribute('aria-hidden', !open);
-  });
+    overlay.setAttribute('aria-hidden', !open);
+    document.body.style.overflow = open ? 'hidden' : '';
+  };
+  burger.addEventListener('click', () => toggle(!overlay.classList.contains('open')));
+  overlay.querySelectorAll('a').forEach(a => a.addEventListener('click', () => toggle(false)));
+  addEventListener('keydown', e => { if (e.key === 'Escape') toggle(false); });
 
-  // Close drawer on link click
-  drawer.querySelectorAll('a').forEach(a => {
-    a.addEventListener('click', () => {
-      drawer.classList.remove('open');
-      burger.classList.remove('open');
-      burger.setAttribute('aria-expanded', 'false');
-      drawer.setAttribute('aria-hidden', 'true');
-    });
-  });
+  // highlight today's opening hours
+  const today = new Date().getDay();
+  const row = document.querySelector('#hours tr[data-day="' + today + '"]');
+  if (row && !row.classList.contains('shut')) row.classList.add('today');
+
+  // scroll reveal — staggered, enhances visible default
+  const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const items = document.querySelectorAll('.reveal');
+  if (reduce || !('IntersectionObserver' in window)) {
+    items.forEach(el => el.classList.add('in'));
+  } else {
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
+    }, { threshold: 0.12, rootMargin: '0px 0px -8% 0px' });
+    items.forEach(el => io.observe(el));
+  }
 </script>
 
 </body>
