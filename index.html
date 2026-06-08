@@ -27,14 +27,14 @@
       --bg-deep:   oklch(0.205 0.014 64);   /* near-black, warm      */
       --surface:   oklch(0.993 0.005 79);   /* near-white card       */
 
-      --ink:       oklch(0.215 0.014 62);   /* headings / near-black */
-      --ink-2:     oklch(0.392 0.013 60);   /* body — passes 4.5:1   */
-      --ink-3:     oklch(0.548 0.012 60);   /* muted, large text only*/
-      --cream-ink: oklch(0.928 0.012 80);   /* text on dark          */
-      --cream-mut: oklch(0.74 0.012 78);    /* muted text on dark    */
+      --ink:       oklch(0.205 0.014 62);   /* headings / near-black */
+      --ink-2:     oklch(0.378 0.013 60);   /* body — passes 4.5:1   */
+      --ink-3:     oklch(0.498 0.012 60);   /* muted — passes 4.5:1  */
+      --cream-ink: oklch(0.955 0.010 80);   /* text on dark          */
+      --cream-mut: oklch(0.812 0.014 80);   /* muted text on dark    */
 
-      --gold:      oklch(0.745 0.090 72);   /* accent — large/decor  */
-      --gold-ink:  oklch(0.520 0.098 62);   /* accent for small text */
+      --gold:      oklch(0.785 0.092 74);   /* accent — large/decor  */
+      --gold-ink:  oklch(0.470 0.104 60);   /* accent for small text */
       --gold-soft: oklch(0.90 0.045 78);    /* tint fills            */
 
       --line:      oklch(0.215 0.014 62 / 0.13);  /* hairline on light */
@@ -90,6 +90,16 @@
       background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
     }
 
+    /* sample photos — layered over the gradient placeholders, degrade gracefully */
+    .about-stack .ph { position: relative; overflow: hidden; }
+    .photo {
+      position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover;
+      z-index: 2; opacity: 0; transition: opacity 0.7s var(--ease-out);
+      box-shadow: inset 0 0 0 1px oklch(0.2 0.01 60 / 0.10);
+    }
+    .photo.loaded { opacity: 1; }
+    .gph::after { z-index: 3; }
+
     .wrap { max-width: var(--max); margin-inline: auto; padding-inline: var(--gut); }
     .eyebrow {
       font-size: 0.72rem; font-weight: 500; letter-spacing: 0.22em;
@@ -110,14 +120,14 @@
     .btn .arr { transition: transform 0.3s var(--ease-out); }
     .btn:hover .arr { transform: translateX(4px); }
 
-    .btn-primary { background: var(--ink); color: var(--cream-ink); box-shadow: var(--shadow-sm); }
-    .btn-primary:hover { background: oklch(0.27 0.018 64); box-shadow: var(--shadow-md); }
-    .btn-ghost { background: transparent; color: var(--ink); box-shadow: inset 0 0 0 1px var(--line); }
-    .btn-ghost:hover { background: var(--surface); box-shadow: inset 0 0 0 1px var(--gold); color: var(--gold-ink); }
-    .btn-light { background: var(--cream-ink); color: var(--ink); }
+    .btn-primary { background: var(--ink); color: oklch(0.975 0.008 80); box-shadow: var(--shadow-md); }
+    .btn-primary:hover { background: oklch(0.30 0.020 64); box-shadow: var(--shadow-lg); }
+    .btn-ghost { background: transparent; color: var(--ink); box-shadow: inset 0 0 0 1.5px oklch(0.205 0.014 62 / 0.32); }
+    .btn-ghost:hover { background: var(--surface); box-shadow: inset 0 0 0 1.5px var(--gold-ink); color: var(--gold-ink); }
+    .btn-light { background: oklch(0.985 0.006 80); color: var(--ink); }
     .btn-light:hover { background: oklch(1 0 0); }
-    .btn-outline-d { background: transparent; color: var(--cream-ink); box-shadow: inset 0 0 0 1px var(--line-dark); }
-    .btn-outline-d:hover { box-shadow: inset 0 0 0 1px var(--gold); color: var(--gold); }
+    .btn-outline-d { background: transparent; color: var(--cream-ink); box-shadow: inset 0 0 0 1.5px oklch(0.955 0.010 80 / 0.40); }
+    .btn-outline-d:hover { box-shadow: inset 0 0 0 1.5px var(--gold); color: var(--gold); }
 
     /* ════════════════════════════════════════════
        SCROLL REVEAL  (enhances an already-visible default)
@@ -422,6 +432,10 @@
 
     <div class="hero-visual reveal" data-d="2">
       <figure class="hero-photo">
+        <img class="photo" loading="eager" decoding="async"
+          src="https://images.unsplash.com/photo-1560066984-138dadb4c035?auto=format&fit=crop&q=80&w=900"
+          alt="Professional aplicant color a una melena en un saló de perruqueria"
+          onload="this.classList.add('loaded')" onerror="this.remove()">
         <div class="ph" aria-hidden="true">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.1">
             <path d="M8 21c0-7 3-9 4-13 1 4 4 6 4 13M5 7l2.5 2M19 7l-2.5 2M12 3v3"/>
@@ -442,9 +456,24 @@
 <section class="about" id="nosaltres" aria-labelledby="about-h">
   <div class="wrap about-grid">
     <div class="about-stack reveal" aria-hidden="true">
-      <div class="ph"><span>El saló</span></div>
-      <div class="ph"><span>Inma</span></div>
-      <div class="ph"><span>Rosa</span></div>
+      <div class="ph">
+        <img class="photo" loading="lazy" decoding="async" alt=""
+          src="https://images.unsplash.com/photo-1521590832167-7bcbfaa6381f?auto=format&fit=crop&q=80&w=900"
+          onload="this.classList.add('loaded')" onerror="this.remove()">
+        <span>El saló</span>
+      </div>
+      <div class="ph">
+        <img class="photo" loading="lazy" decoding="async" alt=""
+          src="https://images.unsplash.com/photo-1503951914875-452162b0f3f1?auto=format&fit=crop&q=80&w=500"
+          onload="this.classList.add('loaded')" onerror="this.remove()">
+        <span>Inma</span>
+      </div>
+      <div class="ph">
+        <img class="photo" loading="lazy" decoding="async" alt=""
+          src="https://images.unsplash.com/photo-1605497788044-5a32c7078486?auto=format&fit=crop&q=80&w=500"
+          onload="this.classList.add('loaded')" onerror="this.remove()">
+        <span>Rosa</span>
+      </div>
     </div>
     <div class="about-body reveal" data-d="1">
       <span class="eyebrow">Nosaltres</span>
@@ -501,13 +530,43 @@
       <h2 id="gal-h">Una mostra del nostre estil</h2>
       <p>Aquests espais estan preparats per a fotografies reals del saló. Mentrestant, pots veure'n més al nostre Facebook.</p>
     </div>
-    <div class="mosaic reveal" data-d="1" role="list" aria-label="Galeria de treballs (imatges pendents)">
-      <div class="gph big" role="listitem"><span>Imatge destacada</span></div>
-      <div class="gph" role="listitem"><span>Color</span></div>
-      <div class="gph" role="listitem"><span>Balayage</span></div>
-      <div class="gph wide" role="listitem"><span>Pentinat</span></div>
-      <div class="gph" role="listitem"><span>Tall</span></div>
-      <div class="gph" role="listitem"><span>Detall</span></div>
+    <div class="mosaic reveal" data-d="1" role="list" aria-label="Galeria de treballs">
+      <div class="gph big" role="listitem">
+        <img class="photo" loading="lazy" decoding="async" alt="Interior d'un saló de perruqueria amb llum càlida"
+          src="https://images.unsplash.com/photo-1562322140-8baeececf3df?auto=format&fit=crop&q=80&w=900"
+          onload="this.classList.add('loaded')" onerror="this.remove()">
+        <span>Imatge destacada</span>
+      </div>
+      <div class="gph" role="listitem">
+        <img class="photo" loading="lazy" decoding="async" alt="Treball de coloració del cabell"
+          src="https://images.unsplash.com/photo-1605497788044-5a32c7078486?auto=format&fit=crop&q=80&w=500"
+          onload="this.classList.add('loaded')" onerror="this.remove()">
+        <span>Color</span>
+      </div>
+      <div class="gph" role="listitem">
+        <img class="photo" loading="lazy" decoding="async" alt="Metxes balayage en una melena llarga"
+          src="https://images.unsplash.com/photo-1599351431202-1e0f0137899a?auto=format&fit=crop&q=80&w=500"
+          onload="this.classList.add('loaded')" onerror="this.remove()">
+        <span>Balayage</span>
+      </div>
+      <div class="gph wide" role="listitem">
+        <img class="photo" loading="lazy" decoding="async" alt="Pentinat acabat en un saló"
+          src="https://images.unsplash.com/photo-1521590832167-7bcbfaa6381f?auto=format&fit=crop&q=80&w=800"
+          onload="this.classList.add('loaded')" onerror="this.remove()">
+        <span>Pentinat</span>
+      </div>
+      <div class="gph" role="listitem">
+        <img class="photo" loading="lazy" decoding="async" alt="Tall de cabell professional"
+          src="https://images.unsplash.com/photo-1560066984-138dadb4c035?auto=format&fit=crop&q=80&w=500"
+          onload="this.classList.add('loaded')" onerror="this.remove()">
+        <span>Tall</span>
+      </div>
+      <div class="gph" role="listitem">
+        <img class="photo" loading="lazy" decoding="async" alt="Detall d'un acabat de perruqueria"
+          src="https://images.unsplash.com/photo-1503951914875-452162b0f3f1?auto=format&fit=crop&q=80&w=500"
+          onload="this.classList.add('loaded')" onerror="this.remove()">
+        <span>Detall</span>
+      </div>
     </div>
   </div>
 </section>
